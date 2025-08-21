@@ -1,9 +1,5 @@
 {
-  "name": "MD → DOCX",
-  "nameLocale": {
-    "es": "MD → DOCX",
-    "en": "MD → DOCX"
-  },
+  "name": "M2Parser",
   "guid": "asc.{4f8b3a2e-6c9d-4c1a-9b2f-0a1e2d3c4b5f}",
   "baseUrl": "",
   "version": "1.0.0",
@@ -29,7 +25,7 @@
         "word"
       ],
       "initDataType": "text",
-      "initOnSelectionChanged": true,
+      "initOnSelectionChanged": false,
       "isDisplayedInViewer": false,
       "store": {
         "background": {

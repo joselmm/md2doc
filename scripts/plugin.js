@@ -2,6 +2,8 @@
 // Plugin para ONLYOFFICE: MD -> HTML -> insert / download DOCX
 // Requiere: markdown-it, html-docx-js, FileSaver
 
+
+
 (function () {
   'use strict';
   var theFormulas = [];
@@ -9,11 +11,11 @@
   const mdParser = window.markdownit({ html: true, linkify: true })
 
 
+  var wrapClientHeight = (document.querySelector("body > div.wrap").clientHeight - 10) + "px";
   // elementos UI
   const ta = document.getElementById('md-input');
   const preview = document.getElementById('preview');
   const btnInsert = document.getElementById('btn-insert');
-  const btnDownload = document.getElementById('btn-download');
   const btnPreviewToggle = document.getElementById('btn-preview-toggle');
   const inputFile = document.getElementById('file-md');
 
@@ -29,6 +31,9 @@
     theFormulas = formulas;
     return formulas;
   }
+
+  preview.style.height = wrapClientHeight;
+  ta.style.height = wrapClientHeight;
 
 
 
@@ -176,32 +181,6 @@
     }
   }
 
-  // Genera un .docx del HTML y lo descarga (cliente)
-  async function downloadDocx() {
-    renderPreview(); // o asegurarte de que KaTeX ya corrió
-    aplicarSoloEstilosDefinidos(preview); // <-- aquí también (CORREGIDO)
-
-    const html = preview.innerHTML;
-    const fullHtml = '<!DOCTYPE html><html><head><meta charset="utf-8">' +
-      '<style>body{font-family:Arial,Helvetica,sans-serif}</style>' +
-      '</head><body>' + html + '</body></html>';
-
-    try {
-      // html-docx-js: asBlob
-      // Nota: html-docx-js a veces añade altChunk — prueba el resultado en Word/LibreOffice.
-      if (window.htmlDocx && typeof window.htmlDocx.asBlob === 'function') {
-        const blob = window.htmlDocx.asBlob(fullHtml);
-        saveAs(blob, 'document-from-md.docx');
-      } else {
-        // Fallback simple: guardar HTML si no está la librería
-        const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
-        saveAs(blob, 'document-from-md.html');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Error generando DOCX: ' + err.message);
-    }
-  }
 
   // arrastrar/soltar o abrir archivo .md
   inputFile.addEventListener('change', (ev) => {
@@ -224,10 +203,22 @@
 
   // botones
   btnInsert.addEventListener('click', insertIntoDocument);
-  btnDownload.addEventListener('click', downloadDocx);
   btnPreviewToggle.addEventListener('click', () => {
-    preview.style.display = (preview.style.display === 'none') ? 'block' : 'none';
+    const isHidden = preview.style.display === 'none';
+
+    preview.style.display = isHidden ? 'block' : 'none';
+
+    if (isHidden) {
+      // Preview mostrado → textarea solo en la primera columna
+      ta.classList.remove('fullwidth');
+      wrap.style.gridTemplateColumns = '1fr 1fr';
+    } else {
+      // Preview oculto → textarea ocupa todo el ancho
+      ta.classList.add('fullwidth');
+      wrap.style.gridTemplateColumns = '1fr';
+    }
   });
+
 
   // soporte para arrastrar al textarea
   ta.addEventListener('dragover', (e) => { e.preventDefault(); });
@@ -252,6 +243,14 @@
           renderPreview();
         }
       });
+
+      window.Asc.plugin.onTranslate = () => {
+        document.querySelector("#btn-insert").innerHTML = window.Asc.plugin.tr("Insert into document");
+        document.querySelector("#btn-preview-toggle").innerHTML = window.Asc.plugin.tr("Show/Hide preview");
+        document.querySelector("#info-text").innerHTML = window.Asc.plugin.tr("You can paste Markdown here or open a .md file");
+        document.querySelector("#file-md-label").innerHTML = window.Asc.plugin.tr("Select Markdown file");
+      }
+
     };
   } else {
     // Si pruebas en navegador fuera de ONLYOFFICE
