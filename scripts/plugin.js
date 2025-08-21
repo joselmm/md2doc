@@ -248,7 +248,7 @@
         document.querySelector("#btn-insert").innerHTML = window.Asc.plugin.tr("Insert into document");
         document.querySelector("#btn-preview-toggle").innerHTML = window.Asc.plugin.tr("Show/Hide preview");
         document.querySelector("#info-text").innerHTML = window.Asc.plugin.tr("You can paste Markdown here or open a .md file");
-        document.querySelector("#file-md-label").innerHTML = window.Asc.plugin.tr("Select Markdown file");
+        document.querySelector("#file-md-button").innerHTML = window.Asc.plugin.tr("Select Markdown file");
       }
 
     };
