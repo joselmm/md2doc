@@ -1,0 +1,55 @@
+{
+  "name": "MD → DOCX",
+  "nameLocale": {
+    "es": "MD → DOCX",
+    "en": "MD → DOCX"
+  },
+  "guid": "asc.{4f8b3a2e-6c9d-4c1a-9b2f-0a1e2d3c4b5f}",
+  "baseUrl": "",
+  "version": "1.0.0",
+  "provider": "joselmm",
+  "variations": [
+    {
+      "url": "index.html",
+      "type": "panel",
+      "description": "Convert the text ChatGPT gives you into a ready-to-share Word document.",
+      "descriptionLocale": {
+        "ru": "Преобразуйте текст, который дает вам ChatGPT, в готовый документ Word.",
+        "fr": "Transformez le texte que vous donne ChatGPT en un document Word prêt à partager.",
+        "it": "Converti il testo che ti dà ChatGPT in un documento Word pronto da condividere.",
+        "ja": "ChatGPTが提供するテキストを、すぐに共有できるWord文書に変換します。",
+        "es": "Convierte el texto que te da ChatGPT en un documento Word listo para compartir.",
+        "pt-BR": "Converta o texto que o ChatGPT lhe dá em um documento Word pronto para compartilhar.",
+        "de": "Wandeln Sie den Text, den Ihnen ChatGPT gibt, in ein sofort teilbares Word-Dokument um.",
+        "uk": "Перетворіть текст, який надає вам ChatGPT, у готовий документ Word.",
+        "zh": "将ChatGPT提供的文本转换为可直接分享的Word文档。"
+      },
+      "icons": "icon/icon.png",
+      "EditorsSupport": [
+        "word"
+      ],
+      "initDataType": "text",
+      "initOnSelectionChanged": true,
+      "isDisplayedInViewer": false,
+      "store": {
+        "background": {
+          "light": "#ecede9",
+          "dark": "#4c5151"
+        },
+        "categories": [
+          "specAbilities",
+          "work"
+        ],
+        "icons": {
+          "light": "resources/store/icons",
+          "dark": "resources/store/icons"
+        },
+        "screenshots": [
+          "resources/store/screenshots/1.gif",
+          "resources/store/screenshots/2.png",
+          "resources/store/screenshots/3.png"
+        ]
+      }
+    }
+  ]
+}
